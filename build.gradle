@@ -17,7 +17,7 @@ plugins {
 sourceCompatibility = 11
 targetCompatibility = 11
 
-group 'techdelivery.price.barista'
+group 'javierarrieta'
 version '0.0.1'
 
 repositories {
