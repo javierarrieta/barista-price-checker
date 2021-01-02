@@ -1,24 +1,43 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:6.6.1'
+    }
+}
+
 plugins {
     id 'java'
+    id 'application'
+    id 'com.bmuschko.docker-java-application'  version '6.6.1'
 }
 
-sourceCompatibility = 15
-targetCompatibility = 15
+sourceCompatibility = 11
+targetCompatibility = 11
 
-compileJava {
-    options.compilerArgs += ['--enable-preview']
-}
-
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'techdelivery.price.barista'
+version '0.0.1'
 
 repositories {
     mavenCentral()
 }
 
+application {
+    mainClass = 'techdelivery.price.barista.Main'
+}
+
+docker {
+    javaApplication {
+        baseImage = 'openjdk:15'
+    }
+}
+
 dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
