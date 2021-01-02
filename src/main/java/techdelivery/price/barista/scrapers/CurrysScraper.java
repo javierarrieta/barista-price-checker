@@ -6,17 +6,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
-public class NorthxsouthScrapper implements PriceScraper {
-
+public class CurrysScraper implements PriceScraper {
     @Override
     public BigDecimal findPrice(String url) {
+        //  <meta property="og:price:amount" content="579.99">
         try {
             Document doc = Jsoup.connect(url).get();
 
-            Element div = doc.selectFirst("div.price--main");
-            TextNode moneyNode = (TextNode) div.selectFirst("span.money").childNodes().get(0);
-            String moneyString = moneyNode.getWholeText().trim().replaceAll("[^\\d.]+", "");
+            Element meta = doc.select("meta").stream().filter(el -> "og:price:amount".equals(el.attr("property"))).findFirst().get();
+            String moneyString = meta.attr("content").trim().replaceAll("[^\\d.]+", "");
             return new BigDecimal(moneyString);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -26,6 +26,6 @@ public class NorthxsouthScrapper implements PriceScraper {
 
     @Override
     public boolean handlesHost(String host) {
-        return host.equalsIgnoreCase("northxsouth.ie");
+        return host.equalsIgnoreCase("currys.ie");
     }
 }

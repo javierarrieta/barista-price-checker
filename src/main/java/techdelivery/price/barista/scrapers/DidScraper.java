@@ -22,4 +22,9 @@ public class DidScraper implements PriceScraper {
             return null;
         }
     }
+
+    @Override
+    public boolean handlesHost(String host) {
+        return host.equalsIgnoreCase("did.ie");
+    }
 }

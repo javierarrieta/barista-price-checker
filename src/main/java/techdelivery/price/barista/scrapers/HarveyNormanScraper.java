@@ -7,15 +7,17 @@ import org.jsoup.nodes.TextNode;
 
 import java.math.BigDecimal;
 
-public class NorthxsouthScrapper implements PriceScraper {
-
+public class HarveyNormanScraper implements PriceScraper {
     @Override
     public BigDecimal findPrice(String url) {
+
         try {
             Document doc = Jsoup.connect(url).get();
 
-            Element div = doc.selectFirst("div.price--main");
-            TextNode moneyNode = (TextNode) div.selectFirst("span.money").childNodes().get(0);
+            Element span = doc.select("span").stream()
+                    .filter(s -> s.attr("class").startsWith("discounted_price")).findFirst().get();
+
+            TextNode moneyNode = (TextNode) span.childNodes().get(0);
             String moneyString = moneyNode.getWholeText().trim().replaceAll("[^\\d.]+", "");
             return new BigDecimal(moneyString);
         } catch (Throwable t) {
@@ -26,6 +28,6 @@ public class NorthxsouthScrapper implements PriceScraper {
 
     @Override
     public boolean handlesHost(String host) {
-        return host.equalsIgnoreCase("northxsouth.ie");
+        return host.equalsIgnoreCase("harveynorman.ie");
     }
 }

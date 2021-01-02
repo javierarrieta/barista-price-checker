@@ -22,4 +22,9 @@ public class JoycesScraper implements PriceScraper {
             return null;
         }
     }
+
+    @Override
+    public boolean handlesHost(String host) {
+        return host.equalsIgnoreCase("joyces.ie");
+    }
 }

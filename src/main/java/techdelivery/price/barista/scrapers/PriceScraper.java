@@ -6,4 +6,6 @@ public interface PriceScraper {
 
     BigDecimal findPrice(String url);
 
+    boolean handlesHost(String host);
+
 }
