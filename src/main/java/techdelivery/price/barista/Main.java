@@ -55,7 +55,7 @@ public class Main {
         UrlAndPrice lower = lowerPrice(pages);
 
         String mailSubject = "Sage The Barista Express lower price";
-        String mailBody = "Lower price found: %.2f at %s%n".formatted(lower.price, lower.url);
+        String mailBody = "Lower price found: %.2f at %s".formatted(lower.price, lower.url);
 
         sender.sendMail(mailFrom, mailRecipient, mailSubject, mailBody);
 
