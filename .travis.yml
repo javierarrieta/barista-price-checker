@@ -1,0 +1,9 @@
+language: java
+install: skip
+
+os: linux
+dist: focal
+jdk: openjdk15
+
+script:
+  - ./gradlew build --scan -s
