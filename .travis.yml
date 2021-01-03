@@ -6,4 +6,5 @@ dist: focal
 jdk: openjdk15
 
 script:
-  - ./gradlew build --scan -s
+  - ./gradlew build
+  - sh docker_login.sh && ./gradlew dockerPushImage
