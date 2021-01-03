@@ -12,13 +12,14 @@ public class Main {
             "https://www.did.ie/sage-the-barista-express-been-to-cup-coffee-machine-black-sesame-ses875bks2guk-ses875bks2guk-prd",
             "https://www.joyces.ie/product/sage-the-barista-express-coffee-machine-back-ses875bks2guk1/",
 //                "https://www.harveynorman.ie/small-appliances/coffee-machines/bean-2-cup/sage-barista-express-espresso-coffee-machine-bes875uk-stainless-steel.html",
-            "https://www.currys.ie/ieen/household-appliances/small-kitchen-appliances/coffee-machines-and-accessories/coffee-machines/sage-barista-express-bes875uk-bean-to-cup-coffee-machine-silver-10174955-pdt.html"
+            "https://www.currys.ie/ieen/household-appliances/small-kitchen-appliances/coffee-machines-and-accessories/coffee-machines/sage-barista-express-bes875uk-bean-to-cup-coffee-machine-silver-10174955-pdt.html",
+            "https://www.argos.ie/static/Product/partNumber/7985692.htm"
     };
 
     public static void main(String[] args) throws Exception {
 
         PriceScraper[] scrapers = {new NorthxsouthScrapper(), new DidScraper(), new JoycesScraper(),
-                new HarveyNormanScraper(), new CurrysScraper()};
+                new HarveyNormanScraper(), new CurrysScraper(), new ArgosScraper()};
 
         Optional<MailSender> sender = createMailSender();
 
