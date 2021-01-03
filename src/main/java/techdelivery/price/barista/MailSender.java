@@ -38,14 +38,14 @@ public class MailSender {
     }
 
     public void sendMail(String from, String recipient, String subject, String body) throws MessagingException {
-        Message message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(from));
         message.setRecipients(
                 Message.RecipientType.TO,
                 InternetAddress.parse(recipient)
         );
         message.setSubject(subject);
-        message.setText(body);
+        message.setText(body, "utf-8", "html");
 
         Transport.send(message);
     }
