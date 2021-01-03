@@ -39,18 +39,18 @@ public class Main {
         }
 
 
-        }
-
-        private static Optional<MailSender> createMailSender () {
-            String smtpHost = System.getenv("SMTP_HOSTNAME");
-            if (smtpHost == null || smtpHost.isEmpty())
-                return Optional.empty();
-            int smtpPort = Integer.parseInt(System.getenv("SMTP_PORT"));
-            String smtpUsername = System.getenv("SMTP_USERNAME");
-            String smtpPassword = System.getenv("SMTP_PASSWORD");
-            boolean starttls = Optional.ofNullable(System.getenv("SMTP_STARTTLS")).map(Boolean::parseBoolean).orElse(true);
-
-            return Optional.of(new MailSender(smtpHost, smtpPort, starttls, smtpUsername, smtpPassword));
-        }
-
     }
+
+    private static Optional<MailSender> createMailSender() {
+        String smtpHost = System.getenv("SMTP_HOSTNAME");
+        if (smtpHost == null || smtpHost.isEmpty())
+            return Optional.empty();
+        int smtpPort = Integer.parseInt(System.getenv("SMTP_PORT"));
+        String smtpUsername = System.getenv("SMTP_USERNAME");
+        String smtpPassword = System.getenv("SMTP_PASSWORD");
+        boolean starttls = Optional.ofNullable(System.getenv("SMTP_STARTTLS")).map(Boolean::parseBoolean).orElse(true);
+
+        return Optional.of(new MailSender(smtpHost, smtpPort, starttls, smtpUsername, smtpPassword));
+    }
+
+}
