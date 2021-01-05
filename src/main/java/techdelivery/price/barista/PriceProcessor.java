@@ -10,10 +10,12 @@ import java.util.stream.Stream;
 public class PriceProcessor {
 
     public static class PriceReport {
+        public final String productName;
         public final UrlAndPrice[] urlAndPrices;
         public final UrlAndPrice lowestPrice;
 
-        public PriceReport(UrlAndPrice[] urlAndPrices, UrlAndPrice lowestPrice) {
+        public PriceReport(String productName, UrlAndPrice[] urlAndPrices, UrlAndPrice lowestPrice) {
+            this.productName = productName;
             this.urlAndPrices = urlAndPrices;
             this.lowestPrice = lowestPrice;
         }
@@ -25,17 +27,16 @@ public class PriceProcessor {
         this.scrapers = scrapers;
     }
 
-    public PriceReport process(String[] pages) {
+    public PriceReport process(ProductData productData) {
 
         Stream<Optional<UrlAndScraper>> urlAndScrapers =
-                Arrays.stream(pages).map(url -> scraperForUrl(url).map(scraper -> new UrlAndScraper(url, scraper)));
+                Arrays.stream(productData.pages).map(url -> scraperForUrl(url).map(scraper -> new UrlAndScraper(url, scraper)));
         UrlAndPrice[] urlAndPrice = urlAndScrapers.filter(Optional::isPresent).map(Optional::get)
                 .map(PriceProcessor::scrape).sorted().toArray(UrlAndPrice[]::new);
         UrlAndPrice lowestPrice = urlAndPrice[0];
 
-        return new PriceReport(urlAndPrice, lowestPrice);
+        return new PriceReport(productData.productName, urlAndPrice, lowestPrice);
     }
-
 
     private Optional<PriceScraper> scraperForUrl(String urlString) {
         try {
